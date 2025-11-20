@@ -1,0 +1,26 @@
+1. 
+    fun generatePhotoUri(time: Long): FileInfo {
+        val name = "img_$time.jpg"
+// Get the file object
+// The file will be stored in the folder defined in file_provider_paths.xml
+        val file = File(
+            context.getExternalFilesDir(fileHelper.getPicturesFolder()),
+            name
+        )
+        return FileInfo(
+            fileHelper.getUriFromFile(file),
+            file,
+            name,
+            fileHelper.getPicturesFolder(),
+            "image/jpeg"
+        )
+    }
+
+2. atribut pertama "URI" ini menjadi lokasi tempat kamera menulis file foto/video, sedangkan atribut keempat "relativePath" adalah folder tujuan di MediaStore, yaitu lokasi publik di mana file akan disalin dari folder aplikasi.
+
+3. Urutan ketika pengguna mengambil foto hingga file tersimpan ke MediaStore:
+Langkah 1: App membuat file dan URI
+Langkah 2: URI dikirim ke kamera
+Langkah 3: User mengambil foto (folder tempat foto tidak terlihat oleh galeri)
+Langkah 4: App memasukkan file ke MediaStore
+Langkah 5: Foto muncul di Gallery
